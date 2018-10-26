@@ -1,0 +1,18 @@
+		<section class="character list">
+			<% detailRequest.order.forEach((character) => { %><article id="<%= character.uri %>">
+				<div>
+					<header>
+						<a href="<%= detailPage.uri[detailPage.lang] + "/" + character.uri %>"><h2><%= character.name %></h2></a>
+						<span><%= character.role %></span>
+					</header>
+					<ul>
+						<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-health.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charHealth %>" alt="<%= dataSite[detailPage.lang].term.charHealth %>"></h3><%= character.hp %></li>
+						<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-movement-speed.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charMove %>" alt="<%= dataSite[detailPage.lang].term.charMove %>"></h3><%= character.move %></li>
+						<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-gun-damage.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charGun %>" alt="<%= dataSite[detailPage.lang].term.charGun %>"></h3><%= character.dmg %></li>
+						<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-melee-damage.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charMelee %>" alt="<%= dataSite[detailPage.lang].term.charMelee %>"></h3><%= character.melee %></li>
+					</ul>
+					<p><%= character.desc %></p>
+				</div>
+				<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/characters/<%= character.asset %>-character-decal.png" width="169" height="173" alt="">
+			</article><% }) %>
+		</section>

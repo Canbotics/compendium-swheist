@@ -1,0 +1,17 @@
+		<section class="hat list">
+			<h2 class="vishide"><% if (detailPage.lang == "en") { %>Details<% } else { %>Détails<% }; %></h2>
+			<article id="<%= detailRequest.hat.uri %>">
+				<div>
+					<header>
+						<span><%= detailRequest.hat.class %></span>
+					</header>
+					<p><%= detailRequest.hat.desc %></p>
+				</div>
+				<figure><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/hats/<%= detailRequest.hat.asset %>-hat-decal.png" width="84" height="84" alt=""></figure>
+			</article>
+		</section>
+		
+		<section>
+			<h2><% if (detailPage.lang == "en") { %>Available From<% } else { %>Disponible depuis<% }; %></h2>
+			<p><% if (detailPage.lang == "en") { %>Under construction.<% } else { %>En construction.<% }; %></p>
+		</section>

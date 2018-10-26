@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="<%= detailPage.lang %>">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="<%= detailPage.meta.desc %>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title><%= detailPage.meta.title %></title>
+
+	<link rel="canonical" href="<%= dataSite.uri.rootSite + detailPage.uri[detailPage.lang] %>" />
+	<% for (let langCode in detailPage.uri) { -%><link rel="alternate" hreflang="<%= langCode %>" href="<%= dataSite.uri.rootSite + detailPage.uri[langCode] %>" />
+	<% } -%>
+
+	<link rel="stylesheet" type="text/css" href="<%= dataSite.uri.rootAsset %>steamworld-heist.css" />	
+</head>
+<body>
+	<header>
+		<h1><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/steamworld-heist-logo.png" width="139" height="90" title="<%= dataSite[detailPage.lang].game %>" alt="<%= dataSite[detailPage.lang].game %>"></h1>
+		<nav aria-labelledby="selectlanguage">
+			<h2 id="selectlanguage" class="vishide">Select Language</h2>
+			<ul role="menubar">
+				<li role="menuitem"><a href="<%= detailPage.uri.en %>"<% if (detailPage.lang == "en") { %> aria-current="page"<% } %>><abbr title="English">EN</abbr></a></li>
+				<li role="menuitem"><a href="<%= detailPage.uri.fr %>"<% if (detailPage.lang == "fr") { %> aria-current="page"<% } %>><abbr title="Français">FR</abbr></a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<header>
+			<nav class="sticky" aria-labelledby="navsite">
+				<h2 id="navsite" class="vishide">Site Navigation</h2>
+				<ul role="menubar"><% if (detailPage.lang == "en") { %>
+					<li role="menuitem"><a href="/en"<% if (detailPage.nav.segment == "index") { %> aria-current="page"<% } %>>Home</a></li>
+					<li role="menuitem"><a href="/en/characters"<% if (detailPage.nav.segment == "characters") { %> aria-current="page"<% } %>>Characters</a></li>
+					<li role="menuitem"><a href="/en/hats"<% if (detailPage.nav.segment == "hats") { %> aria-current="page"<% } %>>Hats</a></li>
+					<% } else if (detailPage.lang == "fr") { %>
+					<li role="menuitem"><a href="/fr"<% if (detailPage.nav.segment == "index") { %> aria-current="page"<% } %>>Accueil</a></li>
+					<li role="menuitem"><a href="/fr/personnages"<% if (detailPage.nav.segment == "characters") { %> aria-current="page"<% } %>>Personnages</a></li>
+					<li role="menuitem"><a href="/fr/chapeaux"<% if (detailPage.nav.segment == "hats") { %> aria-current="page"<% } %>>Chapeaux</a></li>
+					<% }; %>
+				</ul>
+			</nav>
+		</header>
+		
+		<h1><%= detailPage.meta.heading %></h1>
+
+<%- include(detailPage.template + ".ejs") %>
+
+		<footer>
+			<h2 class="vishide">Legal</h2>
+			<div><% if (detailPage.lang == "en") { %>Site design and underlying code &copy; 2018 OciCat Media.<% } else { %>Conception du site Web et code sous-jacent &copy; 2019 OciCat Media.<% }; %></div>
+			<div><%- dataSite[detailPage.lang].disc %></div>
+<% if (detailPage.disc.length) { -%>
+			<ol class="disclaimer">
+<% detailPage.disc.forEach(function(disclaimer,disclaimerNumber) { -%>
+				<li id="dis<%= disclaimerNumber + 1 %>"><sup><%= disclaimerNumber + 1 %></sup> <%= disclaimer %></li>
+<% }) -%>
+			</ol>
+<% } -%>
+		</footer>
+	</main>
+
+	<script src="<%= dataSite.uri.rootAssetGlobal %>jquery-3.3.1.min.js"></script>
+	<script src="<%= dataSite.uri.rootAsset %>steamworld-heist.js"></script>
+</body>
+</html>

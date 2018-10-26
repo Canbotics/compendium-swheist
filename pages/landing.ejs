@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Select Language / Choisir la langue">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><%= dataSite.en.title %>: Select Language / <%= dataSite.fr.title %> : Choisir la langue</title>
+
+	<link rel="alternate" hreflang="en" href="<%= dataSite.uri.rootSite %>/en" />
+	<link rel="alternate" hreflang="fr" href="<%= dataSite.uri.rootSite %>/fr" />
+
+	<link rel="stylesheet" type="text/css" href="<%= dataSite.uri.rootAsset %>mmox.css" />	
+</head>
+<body>
+	<header>
+		<div>
+			<h1><%= dataSite.en.title %> / <%= dataSite.fr.title %></h1>
+			<nav>
+				<h2>Site Navigation</h2>
+				<a href="/en" hreflang="en">English</a><a href="/fr" hreflang="fr">Français</a></li>
+			</nav>
+		</div>
+	</header>
+	
+	<main>
+		<div>
+			<header>
+				<h1>Select Language / Choisir la langue</h1>
+			</header>
+			
+			<nav>
+				<a href="/en" hreflang="en">English</a>
+				<a href="/fr" hreflang="fr">Français</a>
+			</nav>
+		</div>
+
+
+		
+		<footer>
+			<h2>Legal</h2>
+			<div>&copy; 2019 OciCat Media</div>
+		</footer>
+	</main>
+
+	<script src="<%= dataSite.uri.rootAssetGlobal %>jquery-3.3.1.min.js"></script>
+	<script src="<%= dataSite.uri.rootAsset %>mmox.js"></script>
+</body>
+</html>
