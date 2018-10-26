@@ -22,7 +22,7 @@
 			
 			<% detailRequest.order.forEach((ability) => { %><article>
 				<header>
-					<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/abilities/<%= ability.asset %>-ability-decal.png" width="100" height="100" alt="">
+					<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/abilities/<%= ability.asset %>-ability-decal.png" width="60" height="60" alt="">
 					<div>
 						<h3><%= ability.name %></h3>
 						<span><% if (ability.type == "Cooldown") { %><%= dataSite[detailPage.lang].term.abilCool.replace("[COUNT]",ability.count) %><% } else if (ability.type == "Consumable") { %><%= dataSite[detailPage.lang].term.abilCons.replace("[COUNT]",ability.count) %><% } else { { %><%= dataSite[detailPage.lang].term.abilPass %><% } }; %></span>
