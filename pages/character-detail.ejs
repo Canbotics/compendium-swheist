@@ -1,24 +1,25 @@
-		<section class="character detail">
-			<article id="<%= detailRequest.character.uri %>">
+		<article id="<%= detailRequest.character.uri %>" class="character detail">
+			<div>
+				<header>
+					<h2><%= detailRequest.character.name %></h2>
+					<span><%= detailRequest.character.role %></span>
+				</header>
+				<ul>
+					<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-health.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charHealth %>" alt="<%= dataSite[detailPage.lang].term.charHealth %>"></h3><%= detailRequest.character.hp %></li>
+					<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-movement-speed.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charMove %>" alt="<%= dataSite[detailPage.lang].term.charMove %>"></h3><%= detailRequest.character.move %></li>
+					<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-gun-damage.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charGun %>" alt="<%= dataSite[detailPage.lang].term.charGun %>"></h3><%= detailRequest.character.dmg %></li>
+					<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-melee-damage.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charMelee %>" alt="<%= dataSite[detailPage.lang].term.charMelee %>"></h3><%= detailRequest.character.melee %></li>
+				</ul>
 				<div>
-					<header>
-						<a href="<%= detailPage.uri[detailPage.lang] + "/" + detailRequest.character.uri %>"><h2><%= detailRequest.character.name %></h2></a>
-						<span><%= detailRequest.character.role %></span>
-					</header>
-					<ul>
-						<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-health.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charHealth %>" alt="<%= dataSite[detailPage.lang].term.charHealth %>"></h3><%= detailRequest.character.hp %></li>
-						<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-movement-speed.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charMove %>" alt="<%= dataSite[detailPage.lang].term.charMove %>"></h3><%= detailRequest.character.move %></li>
-						<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-gun-damage.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charGun %>" alt="<%= dataSite[detailPage.lang].term.charGun %>"></h3><%= detailRequest.character.dmg %></li>
-						<li><h3><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-melee-damage.png" width="36" height="39" title="<%= dataSite[detailPage.lang].term.charMelee %>" alt="<%= dataSite[detailPage.lang].term.charMelee %>"></h3><%= detailRequest.character.melee %></li>
-					</ul>
+					<h3 class="vishide"><%= dataSite[detailPage.lang].term.charDesc %></h3>
 					<p><%= detailRequest.character.desc %></p>
 				</div>
-				<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/characters/<%= detailRequest.character.asset %>-character-decal.png" width="169" height="173" alt="">
-			</article>
-		</section>
+			</div>
+			<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/characters/<%= detailRequest.character.asset %>-character-decal.png" width="169" height="173" alt="">
+		</article>
 		
 		<section class="ability list">
-			<h2><% if (detailPage.lang == "en") { %>Abilities<% } else { %>Capacités<% }; %></h2>
+			<h2 class="vishide"><% if (detailPage.lang == "en") { %>Abilities<% } else { %>Capacités<% }; %></h2>
 			
 			<% detailRequest.order.forEach((ability) => { %><article>
 				<header>

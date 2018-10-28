@@ -1,12 +1,10 @@
-		<section class="hat list">
-			<% detailRequest.order.forEach((hat) => { %><article id="<%= hat.uri %>">
-				<div>
-					<header>
-						<a href="<%= detailPage.uri[detailPage.lang] + "/" + hat.uri %>"><h2><%= hat.name %></h2></a>
-						<span><%= hat.class %></span>
-					</header>
-					<p><%= hat.desc %></p>
-				</div>
-				<figure><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/hats/<%= hat.asset %>-hat-decal.png" width="84" height="84" alt=""></figure>
-			</article><% }) %>
-		</section>
+		<% detailRequest.order.forEach((hat) => { %><article id="<%= hat.uri %>" class="hat list">
+			<div>
+				<header>
+					<a href="<%= detailPage.uri[detailPage.lang] + "/" + hat.uri %>"><h2><%= hat.name %></h2></a>
+					<span><%= hat.class %></span>
+				</header>
+				<p><%= hat.desc %></p>
+			</div>
+			<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/hats/<%= hat.asset %>-hat-decal.png" width="84" height="84" alt="">
+		</article><% }) %>

@@ -25,6 +25,7 @@ const dataSite = {
 			charMove:'Movement Speed',
 			charGun:'Gun Damage',
 			charMelee:'Melee Damage',
+			charDesc:'Description',
 			abilStart:'Starting Ability',
 			abilLevel:'Level [LEVEL]',
 			abilPass:'Passive',
@@ -41,6 +42,7 @@ const dataSite = {
 			charMove:'Vitesse de mouvement',
 			charGun:'Dommages causés par une arme à feu',
 			charMelee:'Dégâts de mélée',
+			charDesc:'La description',
 			abilStart:'Aptitude ou démarrage',
 			abilLevel:'Niveau [LEVEL]',
 			abilPass:'Passive',
@@ -259,7 +261,7 @@ app.get('/:langCode(en|fr)/:characters(characters|personnages)/:character',funct
 	function queryCharacter(cnx) {
 		return new Promise(function(resolve, reject) {
 
-			cnx.query('SELECT lib_pc.pc_id, lib_pc_lang.pc_name, pc_hp, pc_move, CONCAT_WS("-",pc_dmgl,pc_dmgh) AS pc_dmg, pc_melee, lib_pc_lang.pc_uri, pc_asset, lib_pc_lang.pc_desc, role_name, lang_code FROM lib_pc INNER JOIN lib_pc_lang AS tblFilter ON lib_pc.pc_id = tblFilter.pc_id AND tblFilter.pc_uri = ? INNER JOIN lib_pc_lang ON lib_pc.pc_id = lib_pc_lang.pc_id INNER JOIN sys_lang on lib_pc_lang.lang_id = sys_lang.lang_id INNER JOIN lib_role_lang ON lib_pc.role_id = lib_role_lang.role_id AND lib_role_lang.lang_id = sys_lang.lang_id',[request.params.character], function (error, results, fields) {
+			cnx.query('SELECT DISTINCT lib_pc.pc_id, lib_pc_lang.pc_name, pc_hp, pc_move, CONCAT_WS("-",pc_dmgl,pc_dmgh) AS pc_dmg, pc_melee, lib_pc_lang.pc_uri, pc_asset, lib_pc_lang.pc_desc, role_name, lang_code FROM lib_pc INNER JOIN lib_pc_lang AS tblFilter ON lib_pc.pc_id = tblFilter.pc_id AND tblFilter.pc_uri = ? INNER JOIN lib_pc_lang ON lib_pc.pc_id = lib_pc_lang.pc_id INNER JOIN sys_lang on lib_pc_lang.lang_id = sys_lang.lang_id INNER JOIN lib_role_lang ON lib_pc.role_id = lib_role_lang.role_id AND lib_role_lang.lang_id = sys_lang.lang_id',[request.params.character], function (error, results, fields) {
 				if (error) reject(error);
 				
 				results.forEach(function(rsQuery){
@@ -280,6 +282,7 @@ app.get('/:langCode(en|fr)/:characters(characters|personnages)/:character',funct
 					detailPage.uri[rsQuery.lang_code] += rsQuery.pc_uri;
 					//detailRequest.order.push(detailRequest.characters[rsQuery.pc_name]);
 				})
+
 				detailPage.meta.heading = detailPage.meta.heading.replace('[CHARACTERNAME]',detailRequest.character.name);
 				detailPage.meta.title = detailPage.meta.title.replace('[CHARACTERNAME]',detailRequest.character.name);
 				detailPage.meta.desc = detailPage.meta.desc.replace('[CHARACTERNAME]',detailRequest.character.name);
@@ -354,7 +357,7 @@ app.get('/:langCode(en|fr)/:hats(hats|chapeaux)',function(request,response) {
 
 	function queryHats(cnx) {
 		return new Promise(function(resolve, reject) {
-			cnx.query('SELECT hat_name, hat_uri, hat_desc, hat_asset, hat_class_name FROM lib_hat INNER JOIN lib_hat_lang ON lib_hat.hat_id = lib_hat_lang.hat_id INNER JOIN sys_lang ON lib_hat_lang.lang_id = sys_lang.lang_id AND sys_lang.lang_code = ? INNER JOIN lib_hat_class_lang ON lib_hat.hat_class_id = lib_hat_class_lang.hat_class_id ORDER BY lib_hat.hat_id',[detailPage.lang], function (error, results, fields) {
+			cnx.query('SELECT hat_name, hat_uri, hat_desc, hat_asset, hat_class_name FROM lib_hat INNER JOIN lib_hat_lang ON lib_hat.hat_id = lib_hat_lang.hat_id INNER JOIN sys_lang ON lib_hat_lang.lang_id = sys_lang.lang_id AND sys_lang.lang_code = ? INNER JOIN lib_hat_class_lang ON lib_hat.hat_class_id = lib_hat_class_lang.hat_class_id AND lib_hat_class_lang.lang_id = sys_lang.lang_id ORDER BY lib_hat.hat_id',[detailPage.lang], function (error, results, fields) {
 				if (error) reject(error);
 				
 				results.forEach(function(rsQuery){
@@ -472,120 +475,6 @@ app.get('/:langCode(en|fr)/:hats(hats|chapeaux)/:hat',function(request,response)
 
 
 
-app.get('/:langCode(en|fr|jp|de)/:thehunt(the-hunt|contrats-de-chasse|mobuhanto|hohe-jagd)',function(request,response) {
-	var detailPage = {lang:request.params.langCode,template:'the-hunt',uri:{},meta:{heading:'',title:'',desc:''},nav:{segment:'game',game:'ffxiv',page:'thehunt'},disc:[]};
-	var detailRequest = {region:{},zone:{},hunt:{},regions:[]};
-
-	function setDetailPage() {
-		return new Promise(function(resolve, reject) {
-			try {
-				for (language in dataPage.thehunt) {
-					if (language == detailPage.lang) {
-						detailPage.meta.heading = dataPage.thehunt[language].title;
-						detailPage.meta.title = dataPage.thehunt[language].title + ' | Final Fantasy XIV';
-						detailPage.meta.desc = dataPage.thehunt[language].desc;
-						
-					}
-					detailPage.uri[language] = dataPage.thehunt[language].uri;
-				}
-				resolve(true);
-				
-			} catch(error) {reject(error);}
-		})
-	}
-
-	function queryHunts(cnx) {
-		return new Promise(function(resolve, reject) {
-			cnx.query('SELECT hunt_name, hunt_uri, hunt_rank, zone_name, zone_uri, region_name, region_uri FROM lib_hunt INNER JOIN lib_hunt_lang ON lib_hunt.hunt_id = lib_hunt_lang.hunt_id AND lib_hunt_lang.hunt_lang = ? INNER JOIN lib_zone ON lib_hunt.zone_id = lib_zone.zone_id INNER JOIN lib_zone_lang ON lib_zone.zone_id = lib_zone_lang.zone_id AND lib_zone_lang.zone_lang = lib_hunt_lang.hunt_lang INNER JOIN lib_expansion ON lib_zone.expansion_id = lib_expansion.expansion_id INNER JOIN lib_region ON lib_zone.region_id = lib_region.region_id INNER JOIN lib_region_lang ON lib_region.region_id = lib_region_lang.region_id AND lib_region_lang.region_lang = lib_hunt_lang.hunt_lang ORDER BY region_order, region_name, zone_name, hunt_rank, hunt_name',[detailPage.lang], function (error, results, fields) {
-				if (error) reject(error);
-
-				results.forEach(function(rsQuery){
-					if (detailRequest.region[rsQuery.region_name] == undefined){
-						detailRequest.region[rsQuery.region_name] = {name:rsQuery.region_name,uri:rsQuery.region_uri,zones:[]};
-						detailRequest.regions.push(detailRequest.region[rsQuery.region_name]);
-					}
-					if (detailRequest.zone[rsQuery.zone_name] == undefined){
-						detailRequest.zone[rsQuery.zone_name] = {name:rsQuery.zone_name,uri:rsQuery.zone_uri,b:[],a:[],s:[]};
-						detailRequest.region[rsQuery.region_name].zones.push(detailRequest.zone[rsQuery.zone_name]);
-					}
-					detailRequest.hunt[rsQuery.hunt_name] = {name:rsQuery.hunt_name,uri:rsQuery.hunt_uri,rank:rsQuery.hunt_rank};
-					detailRequest.zone[rsQuery.zone_name][rsQuery.hunt_rank.toLowerCase()].push(detailRequest.hunt[rsQuery.hunt_name]);
-				})
-				
-				resolve(true);
-			})
-		})
-	}
-
-	dataOpen().then((cnx) => {
-		Promise.all([setDetailPage(), queryHunts(cnx)]).then(() => {
-			response.render('template',{dataSite:dataSite,detailPage:detailPage,detailRequest:detailRequest});	
-		}).catch(function(err) {console.log(err);})
-	}).catch(function(err) {console.log(err);})
-});
-
-app.get('/:langCode(en|fr|jp|de)/:thehunt(the-hunt|contrats-de-chasse|mobuhanto|hohe-jagd)/:uriMark',function(request,response) {
-	var detailPage = {lang:request.params.langCode,template:'the-hunt-mark',uri:{},meta:{heading:'',title:'',desc:''},nav:{segment:'game',game:'ffxiv',page:'thehunt'},disc:[]};
-	var detailRequest = {name:'',uri:'',rank:'',expansion:'',zone:{name:'',uri:''}};
-
-	function setDetailPage() {
-		return new Promise(function(resolve, reject) {
-			try {
-				for (language in dataPage.thehunt) {
-					if (language == detailPage.lang) {
-						detailPage.meta.heading = detailRequest.name;
-						detailPage.meta.title = detailRequest.name + ' | ' + dataPage.thehunt[language].title + ' | Final Fantasy XIV';
-						detailPage.meta.desc = dataPage.thehunt[language].desc;
-						
-					}
-					detailPage.uri[language] = dataPage.thehunt[language].uri + '/' + detailRequest.uri;
-				}
-				resolve(true);
-				
-			} catch(error) {reject(error);}
-		})
-	}
-
-	function queryHunt(cnx) {
-		return new Promise(function(resolve, reject) {
-			cnx.query('SELECT hunt_name, hunt_uri, hunt_rank, if(hunt_respawn_lower = hunt_respawn_upper, hunt_respawn_lower, CONCAT_WS(" - ", hunt_respawn_lower, hunt_respawn_upper)) AS hunt_respawn, if(hunt_maint_lower IS NULL, NULL, if(hunt_maint_lower = hunt_maint_upper, hunt_maint_lower, CONCAT_WS(" - ", hunt_maint_lower, hunt_maint_upper))) AS hunt_maint, hunt_spawn, zone_name, zone_uri, region_name, region_uri, expansion_name FROM lib_hunt INNER JOIN lib_hunt_lang ON lib_hunt.hunt_id = lib_hunt_lang.hunt_id AND lib_hunt_lang.hunt_lang = ? INNER JOIN lib_zone ON lib_hunt.zone_id = lib_zone.zone_id INNER JOIN lib_zone_lang ON lib_zone.zone_id = lib_zone_lang.zone_id AND lib_zone_lang.zone_lang = lib_hunt_lang.hunt_lang INNER JOIN lib_expansion ON lib_zone.expansion_id = lib_expansion.expansion_id INNER JOIN lib_region ON lib_zone.region_id = lib_region.region_id INNER JOIN lib_region_lang ON lib_region.region_id = lib_region_lang.region_id AND lib_region_lang.region_lang = lib_hunt_lang.hunt_lang WHERE hunt_uri = ?',[request.params.langCode,request.params.uriMark], function (error, results, fields) {
-				if (error) reject(error);
-
-				results.forEach(function(rsQuery){
-					detailRequest.name = rsQuery.hunt_name;
-					detailRequest.uri = rsQuery.hunt_uri;
-					detailRequest.rank = rsQuery.hunt_rank;
-					detailRequest.respawn = rsQuery.hunt_respawn;
-					detailRequest.maint = rsQuery.hunt_maint;
-					detailRequest.spawn = rsQuery.hunt_spawn;
-					detailRequest.expansion = rsQuery.expansion_name;
-					detailRequest.zone.name = rsQuery.zone_name;
-					detailRequest.zone.uri = rsQuery.zone_uri;
-				})
-				
-				if (!detailRequest.name.length) {
-					detailRequest.name = '404 Not Found';
-				}
-				
-				if (detailRequest.rank == 'B') {
-					detailRequest.respawnUnit = dataUnit.second[detailPage.lang];
-				} else {
-					detailRequest.respawnUnit = dataUnit.hour[detailPage.lang];
-				}
-				
-				resolve(true);
-			})
-		})
-	}
-
-	dataOpen().then((cnx) => {
-		queryHunt(cnx).then(() => {
-			setDetailPage().then(() => {
-				response.render('template',{dataSite:dataSite,detailPage:detailPage,detailRequest:detailRequest});	
-			}).catch(function(err) {console.log(err);})
-		}).catch(function(err) {console.log(err);})
-	}).catch(function(err) {console.log(err);})
-});
 
 
 
@@ -652,7 +541,6 @@ function dataClose (cnx) {
 		resolve(true);
 	});
 };
-
 
 /* ================================== APP */
 /* ============================================== */
