@@ -1,3 +1,5 @@
+		<a href="<%= detailPage.uri[detailPage.lang].substring(0, detailPage.uri[detailPage.lang].lastIndexOf("/")); %>"><%= dataSite[detailPage.lang].term.charAll %></a>
+		
 		<article id="<%= detailRequest.character.uri %>" class="character detail">
 			<div>
 				<header>
@@ -23,11 +25,11 @@
 			
 			<% detailRequest.order.forEach((ability) => { %><article>
 				<header>
-					<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/abilities/<%= ability.asset %>-ability-decal.png" width="60" height="60" alt="">
 					<div>
 						<h3><%= ability.name %></h3>
 						<span><% if (ability.type == "Cooldown") { %><%= dataSite[detailPage.lang].term.abilCool.replace("[COUNT]",ability.count) %><% } else if (ability.type == "Consumable") { %><%= dataSite[detailPage.lang].term.abilCons.replace("[COUNT]",ability.count) %><% } else { { %><%= dataSite[detailPage.lang].term.abilPass %><% } }; %></span>
 					</div>
+					<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/abilities/<%= ability.asset %>-ability-decal.png" width="60" height="60" alt="">
 				</header>
 				<p><%= ability.desc %></p>
 				<p><% if (ability.level == 0) {%><%= dataSite[detailPage.lang].term.abilStart %><% } else { %><%= dataSite[detailPage.lang].term.abilLevel.replace("[LEVEL]",ability.level) %><% }; %></p>

@@ -19,35 +19,39 @@ const dataSite = {
 	en:{
 		title:'Compendium',
 		game:'Steamworld Heist',
-		disc:'Steamworld Heist &copy; <a href="http://imageform.se/" rel="external">Image & Form Games</a>.',
+		disc:'Site design and underlying code &copy; 2018 OciCat Media.<br>Steamworld Heist &copy; <a href="http://imageform.se/" rel="external">Image & Form Games</a>.',
 		term:{
 			charHealth:'Health',
 			charMove:'Movement Speed',
 			charGun:'Gun Damage',
 			charMelee:'Melee Damage',
 			charDesc:'Description',
+			charAll:'All Characters',
 			abilStart:'Starting Ability',
 			abilLevel:'Level [LEVEL]',
 			abilPass:'Passive',
 			abilCool:'Cooldown: [COUNT] turns',
-			abilCons:'Uses/mission: [COUNT]'
+			abilCons:'Uses/mission: [COUNT]',
+			hatAll:'All Hats'
 		}
 	},
 	fr:{
 		title:'Compendium',
 		game:'Steamworld Heist',
-		disc:'Steamworld Heist <abbr title="marque déposée">MD</abbr> <a href="http://imageform.se/" rel="external">Image & Form Games</a>.\nLes traductions sont effectuées en utilisant <a href="https://translate.google.com/" rel="external nofollow">Google Translate</a>.',
+		disc:'Conception du site Web et code sous-jacent &copy; 2019 OciCat Media.<br>Steamworld Heist &copy; <a href="http://imageform.se/" rel="external">Image & Form Games</a>.<br>Les traductions sont effectuées en utilisant <a href="https://translate.google.com/" rel="external nofollow">Google Translate</a>.',
 		term:{
 			charHealth:'Santé',
 			charMove:'Vitesse de mouvement',
 			charGun:'Dommages causés par une arme à feu',
 			charMelee:'Dégâts de mélée',
 			charDesc:'La description',
+			charAll:'Tous les personnages',
 			abilStart:'Aptitude ou démarrage',
 			abilLevel:'Niveau [LEVEL]',
 			abilPass:'Passive',
 			abilCool:'Recharge: [COUNT] tours',
-			abilCons:'Usages/mission: [COUNT]'
+			abilCons:'Usages/mission: [COUNT]',
+			hatAll:'Tous les chapeaux'
 		}
 	}
 };
