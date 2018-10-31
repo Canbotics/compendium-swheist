@@ -38,7 +38,7 @@ const dataSite = {
 	fr:{
 		title:'Compendium',
 		game:'Steamworld Heist',
-		disc:'Conception du site Web et code sous-jacent &copy; 2019 OciCat Media.<br>Steamworld Heist &copy; <a href="http://imageform.se/" rel="external">Image & Form Games</a>.<br>Les traductions sont effectuées en utilisant <a href="https://translate.google.com/" rel="external nofollow">Google Translate</a>.',
+		disc:'Conception du site Web et code sous-jacent &copy; 2019 OciCat Media.<br>Steamworld Heist &copy; <a href="http://imageform.se/" rel="external">Image & Form Games</a>.<br>Certains textes peuvent être traduits avec <a href="https://translate.google.com/" rel="external nofollow">Google Translate</a>.',
 		term:{
 			charHealth:'Santé',
 			charMove:'Vitesse de mouvement',
