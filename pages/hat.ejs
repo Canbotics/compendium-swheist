@@ -4,7 +4,10 @@
 					<a href="<%= detailPage.uri[detailPage.lang] + "/" + hat.uri %>"><h2><%= hat.name %></h2></a>
 					<span><%= hat.class %></span>
 				</header>
-				<p><%= hat.desc %></p>
+				<div>
+					<h3 class="vishide"><%= dataSite[detailPage.lang].term.genDesc %></h3>
+					<p><%= hat.desc %></p>
+				</div>
 			</div>
 			<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/hats/<%= hat.asset %>-hat-decal.png" width="84" height="84" alt="">
 		</article><% }) %>

@@ -6,7 +6,10 @@
 					<h2><%= detailRequest.hat.name %></h2>
 					<span><%= detailRequest.hat.class %></span>
 				</header>
-				<p><%= detailRequest.hat.desc %></p>
+				<div>
+					<h3 class="vishide"><%= dataSite[detailPage.lang].term.genDesc %></h3>
+					<p><%= detailRequest.hat.desc %></p>
+				</div>
 			</div>
 			<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/hats/<%= detailRequest.hat.asset %>-hat-decal.png" width="84" height="84" alt="">
 		</article>

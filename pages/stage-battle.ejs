@@ -10,7 +10,10 @@
 					<% if(battle.attr[1]) { %><li><% for(let i = 0; i < battle.attr[1]; i++) { %><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/decal-stage-character.png" width="74" height="77" alt=""><% } %><span><% if (battle.attr[1] == 1) { %><%= dataSite[detailPage.lang].term.stageBattleChar[0] %><% } else { %><%= dataSite[detailPage.lang].term.stageBattleChar[1].replace("[NUMBER]",battle.attr[1]) %><% } %></span></li><% } %>
 					<% if(battle.attr[2]) { %><li><% for(let i = 0; i < battle.attr[2]; i++) { %><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/decal-stage-star.png" width="74" height="77" alt=""><% } %><span><% if (battle.attr[2] == 1) { %><%= dataSite[detailPage.lang].term.stageBattleStar[0] %><% } else { %><%= dataSite[detailPage.lang].term.stageBattleStar[1].replace("[NUMBER]",battle.attr[2]) %><% } %></span></li><% } %>
 				</ul>
-				<p><%= battle.desc %></p>
+				<div>
+					<h3 class="vishide"><%= dataSite[detailPage.lang].term.genDesc %></h3>
+					<p><%= battle.desc %></p>
+				</div>
 			</div>
 			<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/<%= battle.asset %>" width="169" height="169" alt="">
 		</article><% }) %>
