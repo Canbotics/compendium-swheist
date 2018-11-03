@@ -503,7 +503,7 @@ app.get('/:langCode(en|fr)/:hats(hats|chapeaux)/:hat',function(request,response)
 
 
 
-app.get('/:langCode(en|fr)/:stages(stages|étapes)',function(request,response) {
+app.get('/:langCode(en|fr)/:stages(stages|etapes)',function(request,response) {
 	var detailPage = {lang:request.params.langCode,template:'stage',uri:{},meta:{heading:'',title:'',desc:''},nav:{segment:'stages',page:'stages'},disc:[]};
 	var detailRequest = {};
 
@@ -529,7 +529,7 @@ app.get('/:langCode(en|fr)/:stages(stages|étapes)',function(request,response) {
 });
 
 
-app.get('/:langCode(en|fr)/:stages(stages|étapes)/:battle(battle|bataille)',function(request,response) {
+app.get('/:langCode(en|fr)/:stages(stages|etapes)/:battle(battle|bataille)',function(request,response) {
 	var detailPage = {lang:request.params.langCode,template:'stage-battle',uri:{},meta:{heading:'',title:'',desc:''},nav:{segment:'stages',page:'battle'},disc:[]};
 	var detailRequest = {battle:{},order:[]};
 
@@ -566,10 +566,6 @@ app.get('/:langCode(en|fr)/:stages(stages|étapes)/:battle(battle|bataille)',fun
 						region:[rsQuery.region_name, rsQuery.region_uri]};
 					
 					detailRequest.order.push(detailRequest.battle[rsQuery.battle_name]);
-				/*
-				
-					
-				*/
 				})
 				resolve(true);
 			})
