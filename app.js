@@ -32,7 +32,10 @@ const dataSite = {
 			abilPass:'Passive',
 			abilCool:'Cooldown: [COUNT] turns',
 			abilCons:'Uses/mission: [COUNT]',
-			hatAll:'All Hats'
+			hatAll:'All Hats',
+			stageBattleEpic:['1 epic loot box available.','[NUMBER] epic loot boxes available.'],
+			stageBattleChar:['1 character slot.','[NUMBER] character slots.'],
+			stageBattleStar:['1 star rating possible.','[NUMBER] star rating possible.']
 		}
 	},
 	fr:{
@@ -51,7 +54,10 @@ const dataSite = {
 			abilPass:'Passive',
 			abilCool:'Recharge: [COUNT] tours',
 			abilCons:'Usages/mission: [COUNT]',
-			hatAll:'Tous les chapeaux'
+			hatAll:'Tous les chapeaux',
+			stageBattleEpic:['1 boîte à lettres épique disponible.','[NUMBER] boîtes à surprises épiques disponibles.'],
+			stageBattleChar:['1 emplacement de personnage.','[NUMBER] emplacements de personnage.'],
+			stageBattleStar:['1 étoile possible.','[NUMBER] 1 étoile possible.']
 		}
 	}
 };
@@ -124,6 +130,36 @@ const dataPage = {
 			title:'[HATNAME]',
 			desc:'Voir les détails du chapeau [HATNAME] dans ' + dataSite.fr.game + '.',
 			uri:'/fr/chapeaux/'
+		}
+		
+		
+	},
+	
+
+
+	
+	stage:{
+		en:{
+			title:'Stages',
+			desc:'' + dataSite.en.game + '.',
+			uri:'/en/stages'
+		},
+		fr:{
+			title:'Étapes',
+			desc:'' + dataSite.fr.game + '.',
+			uri:'/fr/etapes'
+		}
+	},
+	stageBattle:{
+		en:{
+			title:'Battle Stages',
+			desc:'' + dataSite.en.game + '.',
+			uri:'/en/stages/battle'
+		},
+		fr:{
+			title:'Étapes de bataille',
+			desc:'' + dataSite.fr.game + '.',
+			uri:'/fr/etapes/bataille'
 		}
 		
 		
@@ -467,8 +503,87 @@ app.get('/:langCode(en|fr)/:hats(hats|chapeaux)/:hat',function(request,response)
 
 
 
+app.get('/:langCode(en|fr)/:stages(stages|étapes)',function(request,response) {
+	var detailPage = {lang:request.params.langCode,template:'stage',uri:{},meta:{heading:'',title:'',desc:''},nav:{segment:'stages',page:'stages'},disc:[]};
+	var detailRequest = {};
+
+	function setDetailPage() {
+		return new Promise(function(resolve, reject) {
+			try {
+				for (language in dataPage.stage) {
+					if (language == detailPage.lang) {
+						detailPage.meta.heading = dataPage.stage[language].title;
+						detailPage.meta.title = dataPage.stage[language].title + ' | ' + dataSite[language].game;
+						detailPage.meta.desc = dataPage.stage[language].desc;
+					}
+					detailPage.uri[language] = dataPage.stage[language].uri;
+				}
+				resolve(true);
+			} catch(error) {reject(error);}
+		})
+	}
+
+	Promise.all([setDetailPage()]).then(() => {
+		response.render('template',{dataSite:dataSite,detailPage:detailPage,detailRequest:detailRequest});	
+	}).catch(function(err) {console.log(err);})
+});
 
 
+app.get('/:langCode(en|fr)/:stages(stages|étapes)/:battle(battle|bataille)',function(request,response) {
+	var detailPage = {lang:request.params.langCode,template:'stage-battle',uri:{},meta:{heading:'',title:'',desc:''},nav:{segment:'stages',page:'battle'},disc:[]};
+	var detailRequest = {battle:{},order:[]};
+
+	function setDetailPage() {
+		return new Promise(function(resolve, reject) {
+			try {
+				for (language in dataPage.stageBattle) {
+					if (language == detailPage.lang) {
+						detailPage.meta.heading = dataPage.stageBattle[language].title;
+						detailPage.meta.title = dataPage.stageBattle[language].title + ' | ' + dataSite[language].game;
+						detailPage.meta.desc = dataPage.stageBattle[language].desc;
+					}
+					detailPage.uri[language] = dataPage.stageBattle[language].uri;
+				}
+				resolve(true);
+			} catch(error) {reject(error);}
+		})
+	}
+
+	function queryStages(cnx) {
+		return new Promise(function(resolve, reject) {
+			cnx.query('SELECT battle_name, battle_uri, battle_desc, battle_challenge, battle_epic, battle_char, battle_star, region_name, region_uri, decal_uri FROM lib_stage_battle INNER JOIN lib_stage_battle_lang ON lib_stage_battle.battle_id = lib_stage_battle_lang.battle_id INNER JOIN sys_lang on lib_stage_battle_lang.lang_id = sys_lang.lang_id AND sys_lang.lang_code = ? INNER JOIN lib_stage_decal ON lib_stage_battle.decal_id = lib_stage_decal.decal_id INNER JOIN lib_region_lang ON lib_stage_battle.region_id = lib_region_lang.region_id AND lib_region_lang.lang_id = lib_stage_battle_lang.lang_id ORDER BY lib_stage_battle.battle_id',[detailPage.lang], function (error, results, fields) {
+				if (error) reject(error);
+				
+				results.forEach(function(rsQuery){
+					
+					detailRequest.battle[rsQuery.battle_name] = {
+						name:rsQuery.battle_name,
+						uri:rsQuery.battle_uri,
+						desc:rsQuery.battle_desc,
+						attr:[rsQuery.battle_epic, rsQuery.battle_char, rsQuery.battle_star],
+						challenge: rsQuery.battle_challenge,
+						asset:rsQuery.decal_uri,
+						region:[rsQuery.region_name, rsQuery.region_uri]};
+					
+					detailRequest.order.push(detailRequest.battle[rsQuery.battle_name]);
+				/*
+				
+					
+				*/
+				})
+				resolve(true);
+			})
+		})
+	}
+
+	dataOpen().then((cnx) => {
+		Promise.all([setDetailPage(), queryStages(cnx)]).then(() => {
+			Promise.all([dataClose(cnx)]).then(() => {
+				response.render('template',{dataSite:dataSite,detailPage:detailPage,detailRequest:detailRequest});	
+			}).catch(function(err) {console.log(err);})
+		}).catch(function(err) {console.log(err);})
+	}).catch(function(err) {console.log(err);})
+});
 
 
 
