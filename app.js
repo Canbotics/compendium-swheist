@@ -22,6 +22,11 @@ const dataSite = {
 		disc:'Site design and underlying code &copy; 2018 OciCat Media.<br>Steamworld Heist &copy; <a href="http://imageform.se/" rel="external">Image & Form Games</a>.',
 		term:{
 			genDesc:'Description',
+			
+			labLang:'Select Language',
+			labNavSite:'Site Navigation',
+			labLegal:'Legal Disclaimers',
+			
 			charHealth:'Health',
 			charMove:'Movement Speed',
 			charGun:'Gun Damage',
@@ -44,6 +49,11 @@ const dataSite = {
 		disc:'Conception du site Web et code sous-jacent &copy; 2019 OciCat Media.<br>Steamworld Heist &copy; <a href="http://imageform.se/" rel="external">Image & Form Games</a>.<br>Certains textes peuvent être traduits avec <a href="https://translate.google.com/" rel="external nofollow">Google Translate</a>.',
 		term:{
 			genDesc:'La description',
+
+			labLang:'Choisir la langue',
+			labNavSite:'Navigation sur le site',
+			labLegal:'Déni de responsabilité',
+
 			charHealth:'Santé',
 			charMove:'Vitesse de mouvement',
 			charGun:'Dommages causés par une arme à feu',

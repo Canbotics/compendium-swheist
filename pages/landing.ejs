@@ -9,36 +9,41 @@
 	<link rel="alternate" hreflang="en" href="<%= dataSite.uri.rootSite %>/en" />
 	<link rel="alternate" hreflang="fr" href="<%= dataSite.uri.rootSite %>/fr" />
 
-	<link rel="stylesheet" type="text/css" href="<%= dataSite.uri.rootAsset %>mmox.css" />	
+	<link rel="stylesheet" type="text/css" href="<%= dataSite.uri.rootAsset %>steamworld-heist.css" />	
 </head>
 <body>
 	<header>
-		<div>
-			<h1><%= dataSite.en.title %> / <%= dataSite.fr.title %></h1>
-			<nav>
-				<h2>Site Navigation</h2>
-				<a href="/en" hreflang="en">English</a><a href="/fr" hreflang="fr">Français</a></li>
-			</nav>
-		</div>
+		<h1><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/steamworld-heist-logo.png" width="139" height="90" title="<%= dataSite.en.game %>" alt="<%= dataSite.en.game %>"></h1>
+		<nav aria-labelledby="selectlanguage">
+			<h2 id="selectlanguage" class="vishide">Select Language / Choisir la langue</h2>
+			<ul role="menubar">
+				<li role="menuitem"><a href="/en"><abbr title="English">EN</abbr></a></li>
+				<li role="menuitem"><a href="/fr"><abbr title="Français">FR</abbr></a></li>
+			</ul>
+		</nav>
 	</header>
 	
 	<main>
-		<div>
-			<header>
-				<h1>Select Language / Choisir la langue</h1>
-			</header>
-			
-			<nav>
-				<a href="/en" hreflang="en">English</a>
-				<a href="/fr" hreflang="fr">Français</a>
+		<header>
+			<nav class="sticky" aria-labelledby="navsite">
+				<h2 id="navsite" class="vishide"><%= dataSite.en.term.labNavSite %></h2>
+				<ul role="menubar">
+					<li role="menuitem"><a href="/en">English</a></li>
+					<li role="menuitem"><a href="/fr">Français</a></li>
+				</ul>
 			</nav>
-		</div>
+		</header>
 
+		<h2>Select Language / Choisir la langue</h2>
+			
+		<nav>
+			<a href="/en" hreflang="en">English</a>
+			<a href="/fr" hreflang="fr">Français</a>
+		</nav>
 
-		
 		<footer>
-			<h2>Legal</h2>
-			<div>&copy; 2019 OciCat Media</div>
+			<h2 class="vishide"><%= dataSite.en.term.labLegal %></h2>
+			<div><%- dataSite.en.disc %></div>
 		</footer>
 	</main>
 
