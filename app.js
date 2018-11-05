@@ -22,6 +22,7 @@ const dataSite = {
 		disc:'Site design and underlying code &copy; 2018 OciCat Media.<br>Steamworld Heist &copy; <a href="http://imageform.se/" rel="external">Image & Form Games</a>.',
 		term:{
 			genDesc:'Description',
+			genConstruct:'Under Construction',
 			
 			labLang:'Select Language',
 			labNavSite:'Site Navigation',
@@ -32,12 +33,21 @@ const dataSite = {
 			charGun:'Gun Damage',
 			charMelee:'Melee Damage',
 			charAll:'All Characters',
+			
 			abilStart:'Starting Ability',
 			abilLevel:'Level [LEVEL]',
 			abilPass:'Passive',
 			abilCool:'Cooldown: [COUNT] turns',
 			abilCons:'Uses/mission: [COUNT]',
+			
 			hatAll:'All Hats',
+			hatAvail:'Available From',
+			
+			stageChallenge:'Challenge Mission',
+			
+			stagebattleAll:'All Battle Stages',
+			stageBattleEnemies:'Possible Enemies',
+			
 			stageBattleEpic:['1 epic loot box available.','[NUMBER] epic loot boxes available.'],
 			stageBattleChar:['1 character slot.','[NUMBER] character slots.'],
 			stageBattleStar:['1 star rating possible.','[NUMBER] star rating possible.']
@@ -49,6 +59,7 @@ const dataSite = {
 		disc:'Conception du site Web et code sous-jacent &copy; 2019 OciCat Media.<br>Steamworld Heist &copy; <a href="http://imageform.se/" rel="external">Image & Form Games</a>.<br>Certains textes peuvent être traduits avec <a href="https://translate.google.com/" rel="external nofollow">Google Translate</a>.',
 		term:{
 			genDesc:'La description',
+			genConstruct:'En construction',
 
 			labLang:'Choisir la langue',
 			labNavSite:'Navigation sur le site',
@@ -59,12 +70,20 @@ const dataSite = {
 			charGun:'Dommages causés par une arme à feu',
 			charMelee:'Dégâts de mélée',
 			charAll:'Tous les personnages',
+			
 			abilStart:'Aptitude ou démarrage',
 			abilLevel:'Niveau [LEVEL]',
 			abilPass:'Passive',
 			abilCool:'Recharge: [COUNT] tours',
 			abilCons:'Usages/mission: [COUNT]',
+			
 			hatAll:'Tous les chapeaux',
+			hatAvail:'Disponible depuis',
+
+			stageChallenge:'Mission Défi',
+			
+			stagebattleAll:'Toutes les étapes de la bataille',
+			stageBattleEnemies:'Ennemis possibles',
 			stageBattleEpic:['1 boîte à lettres épique disponible.','[NUMBER] boîtes à surprises épiques disponibles.'],
 			stageBattleChar:['1 emplacement de personnage.','[NUMBER] emplacements de personnage.'],
 			stageBattleStar:['1 étoile possible.','[NUMBER] 1 étoile possible.']
@@ -170,6 +189,20 @@ const dataPage = {
 			title:'Étapes de bataille',
 			desc:'' + dataSite.fr.game + '.',
 			uri:'/fr/etapes/bataille'
+		}
+		
+		
+	},
+	stageBattleDetail:{
+		en:{
+			title:'[STAGENAME]',
+			desc:'' + dataSite.en.game + '.',
+			uri:'/en/stages/battle/'
+		},
+		fr:{
+			title:'[STAGENAME]',
+			desc:'' + dataSite.fr.game + '.',
+			uri:'/fr/etapes/bataille/'
 		}
 		
 		
@@ -470,17 +503,11 @@ app.get('/:langCode(en|fr)/:hats(hats|chapeaux)/:hat',function(request,response)
 							desc:rsQuery.hat_desc};
 					}
 					detailPage.uri[rsQuery.lang_code] += rsQuery.hat_uri;
-					
-					//detailRequest.order.push(detailRequest.hat[rsQuery.hat_name]);
 				})
 				
-				//console.log(detailRequest);
-				//console.log(detailPage);
 				detailPage.meta.heading = detailPage.meta.heading.replace('[HATNAME]',detailRequest.hat.name);
 				detailPage.meta.title = detailPage.meta.title.replace('[HATNAME]',detailRequest.hat.name);
 				detailPage.meta.desc = detailPage.meta.desc.replace('[HATNAME]',detailRequest.hat.name);
-				//console.log("\t===\n\t===");
-				//console.log(detailPage);
 
 				resolve(true);
 			})
@@ -539,7 +566,7 @@ app.get('/:langCode(en|fr)/:stages(stages|etapes)',function(request,response) {
 });
 
 
-app.get('/:langCode(en|fr)/:stages(stages|etapes)/:battle(battle|bataille)',function(request,response) {
+app.get('/:langCode(en|fr)/:stages(stages|etapes)/:battles(battle|bataille)',function(request,response) {
 	var detailPage = {lang:request.params.langCode,template:'stage-battle',uri:{},meta:{heading:'',title:'',desc:''},nav:{segment:'stages',page:'battle'},disc:[]};
 	var detailRequest = {battle:{},order:[]};
 
@@ -584,6 +611,63 @@ app.get('/:langCode(en|fr)/:stages(stages|etapes)/:battle(battle|bataille)',func
 
 	dataOpen().then((cnx) => {
 		Promise.all([setDetailPage(), queryStages(cnx)]).then(() => {
+			Promise.all([dataClose(cnx)]).then(() => {
+				response.render('template',{dataSite:dataSite,detailPage:detailPage,detailRequest:detailRequest});	
+			}).catch(function(err) {console.log(err);})
+		}).catch(function(err) {console.log(err);})
+	}).catch(function(err) {console.log(err);})
+});
+
+app.get('/:langCode(en|fr)/:stages(stages|etapes)/:battles(battle|bataille)/:stage',function(request,response) {
+	var detailPage = {lang:request.params.langCode,template:'stage-battle-detail',uri:{},meta:{heading:'',title:'',desc:''},nav:{segment:'stages',page:'battle'},disc:[]};
+	var detailRequest = {battle:{},order:[]};
+
+	function setDetailPage() {
+		return new Promise(function(resolve, reject) {
+			try {
+				for (language in dataPage.stageBattle) {
+					if (language == detailPage.lang) {
+						detailPage.meta.heading = dataPage.stageBattleDetail[language].title;
+						detailPage.meta.title = dataPage.stageBattleDetail[language].title + ' | ' + dataPage.stageBattle[language].title + ' | ' + dataSite[language].game;
+						detailPage.meta.desc = dataPage.stageBattleDetail[language].desc;
+					}
+					detailPage.uri[language] = dataPage.stageBattleDetail[language].uri;
+				}
+				resolve(true);
+			} catch(error) {reject(error);}
+		})
+	}
+
+	function queryStage(cnx) {
+		return new Promise(function(resolve, reject) {
+			cnx.query('SELECT DISTINCT lib_stage_battle_lang.battle_name, lib_stage_battle_lang.battle_uri, lib_stage_battle_lang.battle_desc, battle_challenge, battle_epic, battle_char, battle_star, region_name, region_uri, decal_uri, lang_code FROM lib_stage_battle INNER JOIN lib_stage_battle_lang AS tblFilter ON lib_stage_battle.battle_id = tblFilter.battle_id AND tblFilter.battle_uri = ? INNER JOIN lib_stage_battle_lang ON lib_stage_battle.battle_id = lib_stage_battle_lang.battle_id INNER JOIN sys_lang on lib_stage_battle_lang.lang_id = sys_lang.lang_id INNER JOIN lib_stage_decal ON lib_stage_battle.decal_id = lib_stage_decal.decal_id INNER JOIN lib_region_lang ON lib_stage_battle.region_id = lib_region_lang.region_id AND lib_region_lang.lang_id = lib_stage_battle_lang.lang_id',[request.params.stage], function (error, results, fields) {
+				if (error) reject(error);
+				
+				results.forEach(function(rsQuery){
+					if (rsQuery.lang_code == detailPage.lang) {
+						detailRequest.battle = {
+						name:rsQuery.battle_name,
+						uri:rsQuery.battle_uri,
+						desc:rsQuery.battle_desc,
+						attr:[rsQuery.battle_epic, rsQuery.battle_char, rsQuery.battle_star],
+						challenge: rsQuery.battle_challenge,
+						asset:rsQuery.decal_uri,
+						region:[rsQuery.region_name, rsQuery.region_uri]};
+					}
+					detailPage.uri[rsQuery.lang_code] += rsQuery.battle_uri;
+				})
+				
+				detailPage.meta.heading = detailPage.meta.heading.replace('[STAGENAME]',detailRequest.battle.name);
+				detailPage.meta.title = detailPage.meta.title.replace('[STAGENAME]',detailRequest.battle.name);
+				detailPage.meta.desc = detailPage.meta.desc.replace('[STAGENAME]',detailRequest.battle.name);
+
+				resolve(true);
+			})
+		})
+	}
+
+	dataOpen().then((cnx) => {
+		Promise.all([setDetailPage(), queryStage(cnx)]).then(() => {
 			Promise.all([dataClose(cnx)]).then(() => {
 				response.render('template',{dataSite:dataSite,detailPage:detailPage,detailRequest:detailRequest});	
 			}).catch(function(err) {console.log(err);})

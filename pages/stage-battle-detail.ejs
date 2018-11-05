@@ -1,0 +1,26 @@
+		<a href="<%= detailPage.uri[detailPage.lang].substring(0, detailPage.uri[detailPage.lang].lastIndexOf("/")); %>"><%= dataSite[detailPage.lang].term.stagebattleAll %></a>
+
+		<article id="<%= detailRequest.battle.uri %>" class="stage battle list">
+			<div>
+				<header>
+					<h2><%= detailRequest.battle.name %></h2>
+					<span class="<%= detailRequest.battle.region[1] %>"><%= detailRequest.battle.region[0] %></span>
+					<% if(detailRequest.battle.challenge) { %><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/decal-stage-challenge.png" width="30" height="33" alt="<%= dataSite[detailPage.lang].term.stageBattleChallenge %>"><% } %>
+				</header>
+				<ul>
+					<li><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-epic-loot-<%= detailRequest.battle.attr[0] %>.png" width="<%= detailRequest.battle.attr[0] * 74 %>" height="77" <% if (detailRequest.battle.attr[0] == 1) { %>title="<%= dataSite[detailPage.lang].term.stageBattleEpic[0] %>" alt="<%= dataSite[detailPage.lang].term.stageBattleEpic[0] %>"<% } else { %>title="<%= dataSite[detailPage.lang].term.stageBattleEpic[1].replace("[NUMBER]",detailRequest.battle.attr[0]) %>" alt="<%= dataSite[detailPage.lang].term.stageBattleEpic[1].replace("[NUMBER]",detailRequest.battle.attr[0]) %>"<% } %>></li>
+					<li><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-character-<%= detailRequest.battle.attr[1] %>.png" width="<%= detailRequest.battle.attr[1] * 74 %>" height="77" <% if (detailRequest.battle.attr[1] == 1) { %>title="<%= dataSite[detailPage.lang].term.stageBattleChar[0] %>" alt="<%= dataSite[detailPage.lang].term.stageBattleChar[0] %>"<% } else { %>title="<%= dataSite[detailPage.lang].term.stageBattleChar[1].replace("[NUMBER]",detailRequest.battle.attr[1]) %>" alt="<%= dataSite[detailPage.lang].term.stageBattleChar[1].replace("[NUMBER]",detailRequest.battle.attr[1]) %>"<% } %>></li>
+					<li><img src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-star-<%= detailRequest.battle.attr[2] %>.png" width="<%= detailRequest.battle.attr[2] * 74 %>" height="77" <% if (detailRequest.battle.attr[2] == 1) { %>title="<%= dataSite[detailPage.lang].term.stageBattleStar[0] %>" alt="<%= dataSite[detailPage.lang].term.stageBattleStar[0] %>"<% } else { %>title="<%= dataSite[detailPage.lang].term.stageBattleStar[1].replace("[NUMBER]",detailRequest.battle.attr[2]) %>" alt="<%= dataSite[detailPage.lang].term.stageBattleStar[1].replace("[NUMBER]",detailRequest.battle.attr[2]) %>"<% } %>></li>
+				</ul>
+				<div>
+					<h3 class="vishide"><%= dataSite[detailPage.lang].term.genDesc %></h3>
+					<p><%= detailRequest.battle.desc %></p>
+				</div>
+			</div>
+			<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/<%= detailRequest.battle.asset %>" width="169" height="169" alt="">
+		</article>
+		
+		<section class="enemy list">
+			<h2><%= dataSite[detailPage.lang].term.stageBattleEnemies %></h2>
+			<p><%= dataSite[detailPage.lang].term.genConstruct %></p>
+		</section>

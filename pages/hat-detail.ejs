@@ -14,7 +14,7 @@
 			<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/hats/<%= detailRequest.hat.asset %>-hat-decal.png" width="84" height="84" alt="">
 		</article>
 		
-		<section>
-			<h2><% if (detailPage.lang == "en") { %>Available From<% } else { %>Disponible depuis<% }; %></h2>
-			<p><% if (detailPage.lang == "en") { %>Under construction.<% } else { %>En construction.<% }; %></p>
+		<section class="enemy list">
+			<h2><%= dataSite[detailPage.lang].term.hatAvail %></h2>
+			<p><%= dataSite[detailPage.lang].term.genConstruct %></p>
 		</section>
