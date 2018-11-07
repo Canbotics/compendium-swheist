@@ -183,12 +183,12 @@ const dataPage = {
 		en:{
 			title:'Battle Stages',
 			desc:'' + dataSite.en.game + '.',
-			uri:'/en/stages/battle'
+			uri:'/en/stages/battles'
 		},
 		fr:{
 			title:'Étapes de bataille',
 			desc:'' + dataSite.fr.game + '.',
-			uri:'/fr/etapes/bataille'
+			uri:'/fr/etapes/batailles'
 		}
 		
 		
@@ -197,12 +197,12 @@ const dataPage = {
 		en:{
 			title:'[STAGENAME]',
 			desc:'' + dataSite.en.game + '.',
-			uri:'/en/stages/battle/'
+			uri:'/en/stages/battles/'
 		},
 		fr:{
 			title:'[STAGENAME]',
 			desc:'' + dataSite.fr.game + '.',
-			uri:'/fr/etapes/bataille/'
+			uri:'/fr/etapes/batailles/'
 		}
 		
 		
@@ -566,7 +566,7 @@ app.get('/:langCode(en|fr)/:stages(stages|etapes)',function(request,response) {
 });
 
 
-app.get('/:langCode(en|fr)/:stages(stages|etapes)/:battles(battle|bataille)',function(request,response) {
+app.get('/:langCode(en|fr)/:stages(stages|etapes)/:battles(battles|batailles)',function(request,response) {
 	var detailPage = {lang:request.params.langCode,template:'stage-battle',uri:{},meta:{heading:'',title:'',desc:''},nav:{segment:'stages',page:'battle'},disc:[]};
 	var detailRequest = {battle:{},order:[]};
 
@@ -618,7 +618,7 @@ app.get('/:langCode(en|fr)/:stages(stages|etapes)/:battles(battle|bataille)',fun
 	}).catch(function(err) {console.log(err);})
 });
 
-app.get('/:langCode(en|fr)/:stages(stages|etapes)/:battles(battle|bataille)/:stage',function(request,response) {
+app.get('/:langCode(en|fr)/:stages(stages|etapes)/:battles(battles|batailles)/:stage',function(request,response) {
 	var detailPage = {lang:request.params.langCode,template:'stage-battle-detail',uri:{},meta:{heading:'',title:'',desc:''},nav:{segment:'stages',page:'battle'},disc:[]};
 	var detailRequest = {battle:{},order:[]};
 
