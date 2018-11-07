@@ -26,8 +26,8 @@
 	</header>
 
 	<main>
-		<header>
-			<nav class="sticky" aria-labelledby="navsite">
+		<header class="sticky">
+			<nav aria-labelledby="navsite">
 				<h2 id="navsite" class="vishide"><%= dataSite[detailPage.lang].term.labNavSite %></h2>
 				<ul role="menubar"><% if (detailPage.lang == "en") { %>
 					<li role="menuitem"><a href="/en"<% if (detailPage.nav.segment == "index") { %> aria-current="page"<% } %>>Home</a></li>
