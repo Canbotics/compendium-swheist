@@ -48,9 +48,9 @@ const dataSite = {
 			stagebattleAll:'All Battle Stages',
 			stageBattleEnemies:'Possible Enemies',
 			
-			stageBattleEpic:['1 epic loot box available.','[NUMBER] epic loot boxes available.'],
-			stageBattleChar:['1 character slot.','[NUMBER] character slots.'],
-			stageBattleStar:['1 star rating possible.','[NUMBER] star rating possible.']
+			stageBattleEpic:['1 epic loot box available','[NUMBER] epic loot boxes available'],
+			stageBattleChar:['1 character slot','[NUMBER] character slots'],
+			stageBattleStar:['1 star rating possible','[NUMBER] star rating possible']
 		}
 	},
 	fr:{
@@ -84,9 +84,9 @@ const dataSite = {
 			
 			stagebattleAll:'Toutes les étapes de la bataille',
 			stageBattleEnemies:'Ennemis possibles',
-			stageBattleEpic:['1 boîte à lettres épique disponible.','[NUMBER] boîtes à surprises épiques disponibles.'],
-			stageBattleChar:['1 emplacement de personnage.','[NUMBER] emplacements de personnage.'],
-			stageBattleStar:['1 étoile possible.','[NUMBER] 1 étoile possible.']
+			stageBattleEpic:['1 boîte à lettres épique disponible','[NUMBER] boîtes à surprises épiques disponibles'],
+			stageBattleChar:['1 emplacement de personnage','[NUMBER] emplacements de personnage'],
+			stageBattleStar:['1 étoile possible','[NUMBER] étoile possible']
 		}
 	}
 };

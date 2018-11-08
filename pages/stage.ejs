@@ -12,18 +12,21 @@
 		<article id="boss" class="txt">
 			<header>
 				<a href="<%= detailPage.uri[detailPage.lang] %>/bosses"><h2>Boss Battles</h2></a>
-				<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/banner-battle-stage.png" width="750" height="185" title="Battle Stages" alt="">
+				<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/banner-boss-stage.png" width="750" height="185" title="Boss Stages" alt="">
 			</header>
 			<div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ligula ornare, bibendum nisl ut, molestie ligula. Nunc mollis sodales eros, sed dictum nulla ultricies ut. Aenean id libero eu odio volutpat aliquam. Sed sollicitudin velit id lacus porttitor sodales. Ut rhoncus nunc id nisi mattis auctor. Donec quis tellus eget neque condimentum tristique. Donec vel urna sit amet nibh cursus tristique ultricies eu odio. Nunc nec malesuada velit, eu ultricies lectus. Duis at orci et augue convallis dignissim. Nam pellentesque condimentum auctor. Nunc ullamcorper lectus ac congue tristique.</p>
-				<p>Fusce turpis libero, pretium eu lectus nec, tincidunt interdum leo. Integer et varius ipsum, tempus tincidunt libero. Suspendisse et erat malesuada justo dignissim lobortis. Vivamus suscipit in nulla at gravida. Pellentesque vestibulum iaculis ante, ac maximus odio viverra et. Nulla sagittis rutrum turpis in rhoncus. Quisque mi diam, mollis lobortis nisi vel, vulputate hendrerit leo. Mauris ac turpis imperdiet lectus malesuada efficitur eget ac urna. Mauris in convallis quam. Morbi et imperdiet ante. In finibus, ante at imperdiet auctor, justo est posuere nulla, ut consectetur libero risus at dui. Quisque sit amet nisi eget mauris lobortis rhoncus et id velit. Curabitur dolor sapien, ultricies vitae elementum eget, sagittis quis dui. Sed ut scelerisque eros. Nulla viverra tincidunt mollis.</p>
+				<p>The final stage in each zone is a boss stage; the hardest fights - outside the challenge missions - they have <img class="txtimg" src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-character-4.png" width="288" height="77" title="<%= dataSite[detailPage.lang].term.stageBattleChar[1].replace("[NUMBER]",4) %>" alt="<%= dataSite[detailPage.lang].term.stageBattleChar[1].replace("[NUMBER]",4) %>"> available, and have a maximum <img class="txtimg" src="<%= dataSite.uri.rootAsset %>steamworld-heist/global/decal-star-4.png" width="288" height="77" title="<%= dataSite[detailPage.lang].term.stageBattleStar[1].replace("[NUMBER]",4) %>" alt="<%= dataSite[detailPage.lang].term.stageBattleStar[1].replace("[NUMBER]",4) %>">. There is no loot, but they end that region's storyline.</p>
+				
+				<p>Each fight is against one elite enemy (that region's primary antagonist) with a large health pool, and several other regular enemies. Regular enemies from that region will continuously spawn through out the fight, they will only stop once the level is won; any left on the field will despawn once the boss is defeated.</p>
+				
+				<p>Completing the Vectron Base will trigger the end game video and credit sequence. After the sequences, the player is allowed to freely revisit stages to collect all stars and level the characters. A wormhole also appears at this point, which allows the player to start a New Game +; the unlocked characters and hats will remain, but all equipment will be lost, and character levels will be reset to 0. This new game will skip the tutorial level, going straight to level 1.</p>
 			</div>
 		</article>
 
 		<article id="shop" class="txt">
 			<header>
 				<a href="<%= detailPage.uri[detailPage.lang] %>/shops"><h2>Shops</h2></a>
-				<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/banner-battle-stage.png" width="750" height="185" title="Battle Stages" alt="">
+				<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/banner-shop-stage.png" width="750" height="185" title="Shop Stages" alt="">
 			</header>
 			<div>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ligula ornare, bibendum nisl ut, molestie ligula. Nunc mollis sodales eros, sed dictum nulla ultricies ut. Aenean id libero eu odio volutpat aliquam. Sed sollicitudin velit id lacus porttitor sodales. Ut rhoncus nunc id nisi mattis auctor. Donec quis tellus eget neque condimentum tristique. Donec vel urna sit amet nibh cursus tristique ultricies eu odio. Nunc nec malesuada velit, eu ultricies lectus. Duis at orci et augue convallis dignissim. Nam pellentesque condimentum auctor. Nunc ullamcorper lectus ac congue tristique.</p>
@@ -34,7 +37,7 @@
 		<article id="bar" class="txt">
 			<header>
 				<a href="<%= detailPage.uri[detailPage.lang] %>/bars"><h2>Bars</h2></a>
-				<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/banner-battle-stage.png" width="750" height="185" title="Battle Stages" alt="">
+				<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/banner-bar-stage.png" width="750" height="185" title="Bar Stages" alt="">
 			</header>
 			<div>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ligula ornare, bibendum nisl ut, molestie ligula. Nunc mollis sodales eros, sed dictum nulla ultricies ut. Aenean id libero eu odio volutpat aliquam. Sed sollicitudin velit id lacus porttitor sodales. Ut rhoncus nunc id nisi mattis auctor. Donec quis tellus eget neque condimentum tristique. Donec vel urna sit amet nibh cursus tristique ultricies eu odio. Nunc nec malesuada velit, eu ultricies lectus. Duis at orci et augue convallis dignissim. Nam pellentesque condimentum auctor. Nunc ullamcorper lectus ac congue tristique.</p>
@@ -45,7 +48,7 @@
 		<article id="gate" class="txt">
 			<header>
 				<a href="<%= detailPage.uri[detailPage.lang] %>/gates"><h2>Gates</h2></a>
-				<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/banner-battle-stage.png" width="750" height="185" title="Battle Stages" alt="">
+				<img src="<%= dataSite.uri.rootAsset %>steamworld-heist/stages/banner-gate-stage.png" width="750" height="185" title="Gates" alt="">
 			</header>
 			<div>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a ligula ornare, bibendum nisl ut, molestie ligula. Nunc mollis sodales eros, sed dictum nulla ultricies ut. Aenean id libero eu odio volutpat aliquam. Sed sollicitudin velit id lacus porttitor sodales. Ut rhoncus nunc id nisi mattis auctor. Donec quis tellus eget neque condimentum tristique. Donec vel urna sit amet nibh cursus tristique ultricies eu odio. Nunc nec malesuada velit, eu ultricies lectus. Duis at orci et augue convallis dignissim. Nam pellentesque condimentum auctor. Nunc ullamcorper lectus ac congue tristique.</p>
